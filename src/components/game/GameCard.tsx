@@ -23,33 +23,29 @@ const GameCard: FC<GameCardProps> = ({ question, answer }: GameCardProps) => {
   if (useSelector(isCurrentFlashcardFlipped)) {
     card = (
       <div className={"flex flex-col gap-2"}>
-        <h1 className={"text-2xl font-bold text-white"}>{answer}</h1>
+        <h1 className={"text-2xl font-bold"}>{answer}</h1>
       </div>
     );
   } else {
     card = (
       <div className={"flex flex-col gap-2"}>
-        <h1 className={"text-2xl font-bold text-white text-center"}>
-          {question}
-        </h1>
+        <h1 className={"text-2xl font-bold text-center"}>{question}</h1>
       </div>
     );
   }
 
   const cardVariants = {
     selected: {
-      rotateY: [180, 0],
-      // scale: 1.1,
-      transition: { duration: 0.25 },
+      rotateX: [180, 0],
+      transition: { duration: 0.3 },
       boxShadow:
         "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
     },
     notSelected: {
-      rotateY: [180, 0],
-      scale: 1,
+      rotateX: [180, 0],
+      transition: { duration: 0.3 },
       boxShadow:
         "rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px",
-      transition: { duration: 0.25 },
     },
   };
 
@@ -86,10 +82,28 @@ const GameCard: FC<GameCardProps> = ({ question, answer }: GameCardProps) => {
       onClick={() => dispatch(flipCurrentFlashcard())}
       onDragEnd={(event, info) => onDragEnd(info)}
       className={
-        " border my-20 rounded-xl p-4 cursor-pointer w-3/4 mx-auto h-96 flex flex-col justify-center items-center"
+        "my-20 rounded-xl p-1 cursor-pointer w-3/4 mx-auto h-96 flex flex-col justify-center items-center shadow-2xl"
       }
     >
-      {card}
+      <div
+        className={
+          "p-5 bg-white rounded-xl h-96 w-full flex flex-col justify-between items-center text-black"
+        }
+      >
+        <div>1/10</div>
+
+        { useSelector(isCurrentFlashcardFlipped) ? (
+            <div className={`flex flex-col gap-2`}>
+              <h1 className={"text-2xl font-bold"}>{answer}</h1>
+            </div>
+        ) : (
+            <div className={"flex flex-col gap-2"}>
+              <h1 className={"text-2xl font-bold"}>{question}</h1>
+            </div>
+        )}
+
+        <div></div>
+      </div>
     </motion.div>
   );
 };

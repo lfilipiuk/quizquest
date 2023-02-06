@@ -6,7 +6,7 @@ import {
 } from "../../features/flashcard/flashcardSlice";
 import {
   getCurrentFlashcard, getGameFlashcards,
-  getProgressData,
+  getProgressData, resetGame,
   setGameData,
 } from "../../features/game/gameSlice";
 import { FC, useEffect } from "react";
@@ -33,6 +33,8 @@ const Game: FC = () => {
   return (
     <div className={"flex flex-col gap-2 max-w-2xl my-10 mx-auto relative"}>
       {progressData?.length > 0 && <ProgressBar progress={progressData} />}
+
+
 
       <h1 className={"font-bold text-gray-400 text-xl mx-auto"}>
         Swipe left or right

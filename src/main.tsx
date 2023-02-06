@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import Game from "./components/game/Game";
 import DeckSelector from "./components/deck/DeckSelector";
+import HomePage from "./components/pages/HomePage";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
       {
         path: "deck",
         element: <DeckSelector />,
