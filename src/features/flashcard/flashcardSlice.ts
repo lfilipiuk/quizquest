@@ -1,6 +1,7 @@
 import {AnyAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import flashcardData from "../../utils/flashcardData";
 import {Dispatch} from "redux";
+import {formatCategory} from "../../utils/helpers";
 
 interface FlashcardData {
   id: number;
@@ -43,10 +44,10 @@ const flashcardDataSlice = createSlice({
 
 export const selectAllFlashcards = (state: any) => state.flashcards.flashcards;
 
-export const selectFlashcardsByCategory = (state: any, category: string) => {
+export const selectFlashcardsByCategory = (state: any, category: string | undefined) => {
   return state.flashcards.flashcards.filter(
       (flashcard: FlashcardData) =>
-          flashcard.category.toLowerCase().replace(" ", "-") === category
+          formatCategory(flashcard.category) === category
   );
 }
 

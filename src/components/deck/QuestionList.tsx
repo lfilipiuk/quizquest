@@ -7,7 +7,7 @@ import {
 } from "../../features/flashcard/flashcardSlice";
 import { Dispatch } from "redux";
 import {FlashCardReducer} from "../../app/store";
-import Flashcard from "./Flashcard";
+import QuestionListItem from "./QuestionListItem";
 
 interface FlashcardListProps {
     deckId: any;
@@ -19,23 +19,21 @@ interface FlashcardItem {
     answer: string,
 }
 
-const FlashcardList: FC<FlashcardListProps> = ({deckId}: FlashcardListProps) => {
+const QuestionList: FC<FlashcardListProps> = ({deckId}: FlashcardListProps) => {
     const dispatch = useDispatch();
-
     const flashcards = useSelector((state) => selectFlashcardsByCategory(state, deckId));
-
 
     useEffect(() => {
         dispatch(fetchFlashcardData() as any);
     }, [dispatch]);
 
     return (
-        <ul className={'w-1/2 mx-auto'}>
+        <ul className={'mx-auto max-w-2xl'}>
             {flashcards.map((flashcard: FlashcardItem) => (
-                <Flashcard key={flashcard.id} question={flashcard.question} answer={flashcard.answer}/>
+                <QuestionListItem key={flashcard.id} question={flashcard.question} answer={flashcard.answer}/>
             ))}
         </ul>
     );
 }
 
-export default FlashcardList;
+export default QuestionList;
