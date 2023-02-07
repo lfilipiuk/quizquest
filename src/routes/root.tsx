@@ -1,7 +1,7 @@
 import {Link, Outlet, useParams} from "react-router-dom";
 import Header from "../components/ui/Header";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchFlashcardData, selectAllFlashcards} from "../features/flashcard/flashcardSlice";
+import {fetchDeckData, selectAllFlashcards} from "../features/flashcard/deckSlice";
 import {formatCategory} from "../utils/helpers";
 import {useEffect} from "react";
 
@@ -9,7 +9,7 @@ export default function Root() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-       dispatch(fetchFlashcardData() as any);
+       dispatch(fetchDeckData() as any);
     }, [dispatch]);
 
 

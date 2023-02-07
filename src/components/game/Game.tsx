@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchFlashcardData,
+  fetchDeckData,
   selectFlashcardsByCategory,
-} from "../../features/flashcard/flashcardSlice";
+} from "../../features/flashcard/deckSlice";
 import {
   getCurrentFlashcard, getGameFlashcards,
   getProgressData, resetGame,
@@ -24,7 +24,7 @@ const Game: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFlashcardData() as any);
+    dispatch(fetchDeckData() as any);
     dispatch(setGameData(flashcards));
   }, [dispatch]);
 

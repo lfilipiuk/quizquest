@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import flashcardDataReducer from "../features/flashcard/flashcardSlice";
+import deckReducer from "../features/flashcard/deckSlice";
 import gameReducer from "../features/game/gameSlice";
 
-export type FlashCardReducer = ReturnType<typeof flashcardDataReducer>;
+export type DeckReducer = ReturnType<typeof deckReducer>;
 
 export const store = configureStore({
   reducer: {
-    flashcards: flashcardDataReducer,
+    decks: deckReducer,
     game: gameReducer,
   },
 });

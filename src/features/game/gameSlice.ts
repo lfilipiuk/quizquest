@@ -21,7 +21,7 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     setGameData(state, action: PayloadAction<any>) {
-      state.initialFlashcards = action.payload.map((flashcard: any) => ({
+      state.initialFlashcards = action.payload.flashcards.map((flashcard: any) => ({
         ...flashcard,
         status: "unanswered",
       }));
