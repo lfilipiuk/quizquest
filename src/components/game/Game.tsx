@@ -14,6 +14,7 @@ import GameCard from "./GameCard";
 import { AnimatePresence, motion } from "framer-motion";
 import ProgressBar from "../ui/ProgressBar";
 import LinkButton from "../ui/LinkButton";
+import GameSummary from "./GameSummary";
 
 
 const Game: FC = () => {
@@ -35,17 +36,19 @@ const Game: FC = () => {
   const currentCardNumber = useSelector(getCurrentFlashcardIndex) + 1;
   const flashcardsCount = useSelector(getFlashcardsCount);
   const summary = useSelector(showSummary);
+  const gameFlashcards = useSelector(getGameFlashcards);
 
   if(summary) {
     return (
         <div className={"flex flex-col gap-2 max-w-2xl my-10 mx-auto relative"}>
             <h1 className={"font-bold text-gray-400 text-xl mx-auto"}>
-                Swipe left or right
+                Finished
             </h1>
-            <h1 className={"font-bold text-gray-400 text-xl mx-auto"}>
-                Game Over
-            </h1>
-            <LinkButton onClick={() => dispatch(resetGame())}>Reset Game</LinkButton>
+            <LinkButton onClick={() => dispatch(resetGame())}>Start Over</LinkButton>
+            <div>
+                <GameSummary deck={gameFlashcards}/>
+            </div>
+
         </div>
     )
   }

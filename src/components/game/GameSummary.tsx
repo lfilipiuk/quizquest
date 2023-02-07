@@ -1,9 +1,15 @@
 import {FC} from "react";
+import QuestionList from "../deck/QuestionList";
 
-const GameSummary : FC = () => {
+interface GameSummaryProps {
+    deck: any;
+}
+
+// @ts-ignore
+const GameSummary : FC<GameSummaryProps> = ({deck}) => {
     return (
         <div>
-            Summary
+            <QuestionList deck={deck}/>
         </div>
     )
 }

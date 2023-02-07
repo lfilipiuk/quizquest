@@ -29,7 +29,6 @@ const initialState: DeckDataState = {
 };
 
 export const fetchDeckData = () => (dispatch: Dispatch<AnyAction>) => {
-  console.log("fetchDeckData")
   dispatch(setDecks(flashcardData as any));
 };
 
@@ -41,7 +40,6 @@ const deckSlice = createSlice({
       state.decks = action.payload;
     },
     setCurrentDeck(state, action: PayloadAction<String>) {
-      console.log("setCurrentDeck",state.decks, action.payload)
       state.selectedDeck = state.decks.find(
           (deck: DeckData) => deck.category === action.payload
       );
