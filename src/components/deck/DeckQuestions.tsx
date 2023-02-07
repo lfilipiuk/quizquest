@@ -1,8 +1,9 @@
-import { FC, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { FC, useState } from "react";
+import { useParams } from "react-router-dom";
 import QuestionList from "./QuestionList";
 import { useDispatch } from "react-redux";
 import { resetGame } from "../../features/game/gameSlice";
+import LinkButton from "../ui/LinkButton";
 
 export const DeckQuestions: FC = () => {
   //useParams to get deck name
@@ -16,15 +17,9 @@ export const DeckQuestions: FC = () => {
 
   return (
     <div className={"flex flex-col gap-2 w-1/2 my-10 mx-auto"}>
-      <Link
-        onClick={newGame}
-        to={`/learning/${deckId}`}
-        className={
-          "bg-blue-600 w-52 mx-auto p-4 rounded-lg text-white hover:bg-blue-700 transition-all duration-200 text-xl text-center"
-        }
-      >
+      <LinkButton onClick={newGame} link={`/learning/${deckId}`}>
         Let's learn
-      </Link>
+      </LinkButton>
 
       {!showGame && <QuestionList deckId={deckId} />}
     </div>

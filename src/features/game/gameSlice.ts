@@ -40,6 +40,11 @@ const gameSlice = createSlice({
     nextFlashcard(state) {
       state.currentFlashcard++;
       state.currentFlashcardIsFlipped = false;
+
+      if(state.currentFlashcard >= state.gameFlashcards.length){
+        state.showSummary = true;
+        return;
+      }
       state.gameFlashcards[state.currentFlashcard].status = "current";
     },
     correctAnswer(state) {
@@ -86,5 +91,11 @@ export const getProgressData: any = (state: any) => {
 };
 
 export const getGameFlashcards = (state: any) => state.game.gameFlashcards;
+
+export const getCurrentFlashcardIndex = (state: any) =>
+    state.game.currentFlashcard;
+
+export const getFlashcardsCount = (state: any) =>
+    state.game.gameFlashcards.length;
 
 export const showSummary = (state: any) => state.game.showSummary;

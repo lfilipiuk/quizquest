@@ -5,14 +5,16 @@ import {
   selectFlashcardsByCategory,
 } from "../../features/flashcard/deckSlice";
 import {
-  getCurrentFlashcard, getGameFlashcards,
-  getProgressData, resetGame,
-  setGameData,
+    getCurrentFlashcard, getCurrentFlashcardIndex, getFlashcardsCount, getGameFlashcards,
+    getProgressData, resetGame,
+    setGameData, showSummary,
 } from "../../features/game/gameSlice";
-import { FC, useEffect } from "react";
+import {FC, ReactNode, useEffect} from "react";
 import GameCard from "./GameCard";
 import { AnimatePresence, motion } from "framer-motion";
 import ProgressBar from "../ui/ProgressBar";
+import LinkButton from "../ui/LinkButton";
+
 
 const Game: FC = () => {
   const { deckId } = useParams();
@@ -30,10 +32,27 @@ const Game: FC = () => {
 
   const progressData: any[] = useSelector(getProgressData);
 
+  const currentCardNumber = useSelector(getCurrentFlashcardIndex) + 1;
+  const flashcardsCount = useSelector(getFlashcardsCount);
+  const summary = useSelector(showSummary);
+
+  if(summary) {
+    return (
+        <div className={"flex flex-col gap-2 max-w-2xl my-10 mx-auto relative"}>
+            <h1 className={"font-bold text-gray-400 text-xl mx-auto"}>
+                Swipe left or right
+            </h1>
+            <h1 className={"font-bold text-gray-400 text-xl mx-auto"}>
+                Game Over
+            </h1>
+            <LinkButton onClick={() => dispatch(resetGame())}>Reset Game</LinkButton>
+        </div>
+    )
+  }
+
   return (
     <div className={"flex flex-col gap-2 max-w-2xl my-10 mx-auto relative"}>
       {progressData?.length > 0 && <ProgressBar progress={progressData} />}
-
 
 
       <h1 className={"font-bold text-gray-400 text-xl mx-auto"}>
@@ -41,7 +60,7 @@ const Game: FC = () => {
       </h1>
 
       <AnimatePresence initial={false} mode={"sync"}>
-        {currentCard && (
+        {currentCard && flashcards && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -55,6 +74,8 @@ const Game: FC = () => {
               key={currentCard.id}
               question={currentCard.question}
               answer={currentCard.answer}
+              number ={currentCardNumber}
+              count={flashcardsCount}
             />
           </motion.div>
         )}

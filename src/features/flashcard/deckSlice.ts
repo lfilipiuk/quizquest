@@ -51,7 +51,7 @@ const deckSlice = createSlice({
 
 export const selectAllFlashcards = (state: any) => state.flashcards.flashcards;
 
-export const selectFlashcardsByCategory = (state: any, category: string) => {
+export const selectFlashcardsByCategory = (state: any, category: string | undefined) => {
 
   return state.decks.decks.find(
     (deck: DeckData) => formatCategory(deck.category) === category

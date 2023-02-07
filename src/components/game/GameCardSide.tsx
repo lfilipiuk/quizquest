@@ -11,11 +11,13 @@ import {
 interface GameCardSideProps {
   text: string;
   side?: "A" | "B";
+    number: string;
 }
 
 const GameCardSide: FC<GameCardSideProps> = ({
   text,
   side,
+    number,
 }: GameCardSideProps) => {
   const dispatch = useDispatch();
 
@@ -58,7 +60,7 @@ const GameCardSide: FC<GameCardSideProps> = ({
     <motion.div
       drag={"x"}
       style={{ x, background }}
-      dragConstraints={{ left: 100, right: 100 }}
+      dragConstraints={{ left: 0, right: 0 }}
       whileTap={{ scale: 0.9 }}
       variants={cardVariants}
       animate={side}
@@ -73,7 +75,7 @@ const GameCardSide: FC<GameCardSideProps> = ({
           "p-5 bg-white rounded-xl h-96 w-full flex flex-col justify-between items-center text-black"
         }
       >
-        <div>1/10</div>
+        <div>{number}</div>
 
         <div className={`flex flex-col gap-2`}>
           <h1 className={"text-2xl font-bold"}>{text}</h1>
