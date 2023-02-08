@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
+    "firebase": "^9.17.1",
     "framer-motion": "^9.0.1",
     "prettier": "^2.8.3",
     "react": "^18.2.0",

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 type GameFlashcard = {
   id: number;
@@ -21,7 +21,7 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     setGameData(state, action: PayloadAction<any>) {
-      state.initialFlashcards = action.payload.flashcards.map((flashcard: any) => ({
+      state.initialFlashcards = action.payload.map((flashcard: any) => ({
         ...flashcard,
         status: "unanswered",
       }));
@@ -80,14 +80,12 @@ export const isCurrentFlashcardFlipped = (state: any) =>
   state.game.currentFlashcardIsFlipped;
 
 export const getProgressData: any = (state: any) => {
-  const progressData = state.game.gameFlashcards.map((flashcard: any) => {
+  return state.game.gameFlashcards.map((flashcard: any) => {
     return {
       id: flashcard.id,
       status: flashcard.status,
     };
   });
-
-  return progressData;
 };
 
 export const getGameFlashcards = (state: any) => state.game.gameFlashcards;

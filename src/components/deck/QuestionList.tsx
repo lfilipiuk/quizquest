@@ -1,22 +1,8 @@
 import {
   FC,
-  JSXElementConstructor,
   Key,
-  ReactElement,
-  ReactFragment,
-  ReactPortal,
-  useEffect,
 } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchDeckData,
-  getSelectedDeck,
-  selectAllFlashcards,
-  selectFlashcardsByCategory,
-  setCurrentDeck,
-} from "../../features/flashcard/deckSlice";
-import { Dispatch } from "redux";
-import { DeckReducer } from "../../app/store";
+
 import QuestionListItem from "./QuestionListItem";
 
 interface FlashcardListProps {
@@ -32,13 +18,6 @@ interface FlashcardItem {
 }
 
 const QuestionList: FC<FlashcardListProps> = ({ deck }: FlashcardListProps) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchDeckData() as any);
-  }, [dispatch]);
-
-
 
   if (!deck) return <div>Loading...</div>;
 

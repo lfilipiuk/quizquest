@@ -1,22 +1,33 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import QuestionList from "./QuestionList";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { resetGame } from "../../features/game/gameSlice";
 import LinkButton from "../ui/LinkButton";
-import { selectFlashcardsByCategory } from "../../features/flashcard/deckSlice";
+import {
+  useGetDecksQuery,
+} from "../../features/deck/deckSlice";
 
 export const DeckQuestions: FC = () => {
   //useParams to get deck name
   const { deckId } = useParams();
   const dispatch = useDispatch();
-  const deck = useSelector((state) =>
-    selectFlashcardsByCategory(state, deckId)
-  );
+
+  const { data, isLoading, isSuccess } = useGetDecksQuery({});
 
   const newGame = () => {
     dispatch(resetGame());
   };
+
+  let deck: any = {};
+
+  if (isSuccess && data) {
+    deck = data?.find((deck: any) => deck.id === deckId);
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={"flex flex-col gap-2 max-w-2xl my-10 mx-auto"}>
