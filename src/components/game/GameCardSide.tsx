@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import { useDispatch } from "react-redux";
 import {
   correctAnswer,
@@ -11,13 +11,11 @@ import {
 interface GameCardSideProps {
   text: string;
   side?: "A" | "B";
-    number: string;
 }
 
 const GameCardSide: FC<GameCardSideProps> = ({
   text,
   side,
-    number,
 }: GameCardSideProps) => {
   const dispatch = useDispatch();
 
@@ -50,16 +48,16 @@ const GameCardSide: FC<GameCardSideProps> = ({
 
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
-  const background = useTransform(x, xInput, [
-    "linear-gradient(180deg, #e92560 0%, #e92549 100%)",
-    "linear-gradient(180deg,#2562E9 0%, #252FE9 100%)",
-    "linear-gradient(180deg, #25e928 0%, #25e946 100%)",
-  ]);
+  // const background = useTransform(x, xInput, [
+  //   "linear-gradient(180deg, #e92560 0%, #e92549 100%)",
+  //   "linear-gradient(180deg,#2562E9 0%, #252FE9 100%)",
+  //   "linear-gradient(180deg, #25e928 0%, #25e946 100%)",
+  // ]);
 
   return (
     <motion.div
       drag={"x"}
-      style={{ x, background }}
+      // style={{ x, background }}
       dragConstraints={{ left: 0, right: 0 }}
       whileTap={{ scale: 0.9 }}
       variants={cardVariants}
@@ -67,22 +65,10 @@ const GameCardSide: FC<GameCardSideProps> = ({
       onClick={() => dispatch(flipCurrentFlashcard())}
       onDragEnd={(event, info) => onDragEnd(info)}
       className={
-        "my-20 rounded-xl p-1 cursor-pointer w-3/4 mx-auto h-96 flex flex-col justify-center items-center shadow-2xl absolute backface-hidden"
+        "my-20 rounded-xl p-1 cursor-pointer w-3/4 mx-auto h-80 flex flex-col justify-center items-center shadow-2xl absolute backface-hidden bg-white"
       }
     >
-      <div
-        className={
-          "p-5 bg-white rounded-xl h-96 w-full flex flex-col justify-between items-center text-black"
-        }
-      >
-        <div>{number}</div>
-
-        <div className={`flex flex-col gap-2`}>
-          <h1 className={"text-2xl font-bold"}>{text}</h1>
-        </div>
-
-        <div></div>
-      </div>
+          <h1 className={"text-2xl text-center"}>{text}</h1>
     </motion.div>
   );
 };

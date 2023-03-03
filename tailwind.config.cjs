@@ -36,7 +36,12 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+        colors: {
+          slate: '#6A8495',
+          quizBlue: '#1EA5FC',
+        }
+    },
   },
   plugins: [backfaceVisibility, rotateY]
 }
