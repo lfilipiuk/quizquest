@@ -66,8 +66,6 @@ const Game: FC = () => {
               key={currentCard.id}
               question={currentCard.question}
               answer={currentCard.answer}
-              number={currentCardNumber}
-              count={flashcardsCount}
             />
           </motion.div>
         )}
