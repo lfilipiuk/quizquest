@@ -1,4 +1,4 @@
-import { resetGame, setGameData } from "../../features/game/gameSlice";
+import { resetGame, setGameData,setDeckName } from "../../features/game/gameSlice";
 import { useDispatch } from "react-redux";
 import Game from "../game/Game";
 import { useParams } from "react-router-dom";
@@ -20,6 +20,7 @@ const GamePage = () => {
     if (!deck) return;
 
     memoizedDispatch(setGameData(deck.flashcards));
+    memoizedDispatch(setDeckName(deck.name));
     memoizedDispatch(resetGame());
   }, [memoizedDispatch, deckId, data]);
 

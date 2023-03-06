@@ -1,15 +1,15 @@
 import { LayoutGroup, motion } from "framer-motion";
-import { FC, useState } from "react";
+import {FC, useRef, useState} from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useGetDecksQuery } from "../../features/deck/deckSlice";
-import {iconSelector} from "../../utils/helpers";
+import { iconSelector } from "../../utils/helpers";
 
 const DeckSelector: FC = () => {
   const [selectedDeck, setSelectedDeck] = useState(null);
 
   const { data, isLoading, isSuccess } = useGetDecksQuery({});
 
-  if (isLoading) {
+    if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -24,10 +24,11 @@ const DeckSelector: FC = () => {
                   layout
                   key={deck.id}
                   className={
-                    "m-4 bg-white shadow-lg rounded-xl cursor-pointer p-3 overflow-hidden"
+                    "m-4 bg-white shadow-lg cursor-pointer p-3 overflow-hidden"
                   }
                   style={{
                     height: deck.id !== selectedDeck ? "7.5em" : "auto",
+                    borderRadius: "12px",
                   }}
                   onClick={() => {
                     if (deck.id === selectedDeck) {
@@ -39,16 +40,17 @@ const DeckSelector: FC = () => {
                 >
                   <motion.div layout className={"flex items-center gap-3"}>
                     <div
-                        style={
-                            {
-                                backgroundColor: iconSelector(deck.name).backgroundColor,
-                            }
-                        }
+                      style={{
+                        backgroundColor: iconSelector(deck.name)
+                          .backgroundColor,
+                      }}
                       className={
-                        "w-24 h-24 rounded-xl flex justify-center items-center"
+                        "w-24 h-24 rounded-lg flex justify-center items-center select-none"
                       }
                     >
-                      <p className={"text-3xl"}>{iconSelector(deck.name).emoji}</p>
+                      <p className={"text-3xl"}>
+                        {iconSelector(deck.name).emoji}
+                      </p>
                     </div>
                     <div>
                       <h3 className={"font-medium flex-1 text-xl text-center"}>
@@ -59,6 +61,20 @@ const DeckSelector: FC = () => {
                       </p>
                     </div>
                   </motion.div>
+
+                  {deck.id === selectedDeck ? (
+                    <motion.div className={"mt-4"} layout>
+                      <Link
+                        to={`/learning/${deck.id}`}
+                        className={
+                          "bg-quizBlue text-white font-medium text-center w-full p-3 rounded-lg mx-auto block w-full"
+                        }
+                      >
+                        Start learning
+                      </Link>
+                    </motion.div>
+                  ) : null}
+
                   <div>
                     {deck.id === selectedDeck
                       ? deck.flashcards.map((flashcard: any) => (
@@ -77,17 +93,6 @@ const DeckSelector: FC = () => {
                         ))
                       : null}
                   </div>
-
-                  {deck.id === selectedDeck ? (
-                    <Link
-                      to={`/learning/${deck.id}`}
-                      className={
-                        "bg-quizBlue text-white font-medium text-center w-full p-3 rounded-lg mx-auto block w-full"
-                      }
-                    >
-                      Start learning
-                    </Link>
-                  ) : null}
                 </motion.li>
               ))}
             </LayoutGroup>

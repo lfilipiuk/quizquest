@@ -1,40 +1,94 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  getCurrentFlashcard,
-  getCurrentFlashcardIndex,
-  getFlashcardsCount,
-  getGameFlashcards,
-  getProgressData,
-  resetGame,
-  showSummary,
+    getCorrectAnswersCount,
+    getCurrentFlashcard,
+    getDeckName, getFlashcardsCount,
+    getGameFlashcards,
+    getProgressData, getQuestionNumber, getWrongAnswersCount,
+    reviseMistakes,
+    showSummary,
 } from "../../features/game/gameSlice";
 import { FC } from "react";
 import GameCard from "./GameCard";
 import { AnimatePresence, motion } from "framer-motion";
 import ProgressBar from "../ui/ProgressBar";
-import LinkButton from "../ui/LinkButton";
-import GameSummary from "./GameSummary";
-
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
+import { iconSelector } from "../../utils/helpers";
 
 const Game: FC = () => {
   const dispatch = useDispatch();
   const currentCard = useSelector(getCurrentFlashcard);
   const progressData: any[] = useSelector(getProgressData);
-  const currentCardNumber = useSelector(getCurrentFlashcardIndex) + 1;
-  const flashcardsCount = useSelector(getFlashcardsCount);
   const summary = useSelector(showSummary);
   const gameFlashcards = useSelector(getGameFlashcards);
+  const deckName = useSelector(getDeckName);
+  const correctAnswers = useSelector(getCorrectAnswersCount);
+  const wrongAnswers = useSelector(getWrongAnswersCount);
+  const flashcardsCount = useSelector(getFlashcardsCount);
+  const questionNumber = useSelector(getQuestionNumber);
 
   if (summary) {
     return (
       <div className={"flex flex-col gap-2 max-w-2xl my-10 mx-auto relative"}>
-        <h1 className={"font-bold text-gray-400 text-xl mx-auto"}>Finished</h1>
-        <LinkButton onClick={() => dispatch(resetGame())}>
-          Start Over
-        </LinkButton>
-        <div>
-          <GameSummary deck={gameFlashcards} />
+        <h1 className={"text-3xl mx-auto"}>
+          You scored {correctAnswers} out of {flashcardsCount}!
+        </h1>
+        <h2 className={"text-xl text-slate mx-auto"}>
+          Here are the things you still need to revise:
+        </h2>
+
+        <div
+          className={"m-4 bg-white shadow-lg p-3"}
+          style={{
+            height: "auto",
+            borderRadius: "12px",
+          }}
+        >
+          <div className={"flex items-center gap-3"}>
+            <div
+              style={{
+                backgroundColor: iconSelector(deckName).backgroundColor,
+              }}
+              className={
+                "w-24 h-24 rounded-lg flex justify-center items-center select-none"
+              }
+            >
+              <p className={"text-3xl"}>{iconSelector(deckName).emoji}</p>
+            </div>
+            <div>
+              <h3 className={"font-medium flex-1 text-xl text-center"}>
+                {deckName}
+              </h3>
+              <p className={"text-slate"}>
+                {wrongAnswers} things left to learn
+              </p>
+            </div>
+          </div>
+
+          <div className={"mt-4"}>
+            <button
+                onClick={() => dispatch(reviseMistakes())}
+              className={
+                "bg-quizBlue text-white font-medium text-center w-full p-3 rounded-lg mx-auto block w-full"
+              }
+            >
+              Revise mistakes
+            </button>
+          </div>
+
+          {gameFlashcards
+            .filter((flashcard: any) => flashcard.status === "wrong")
+            .map((flashcard: any) => (
+              <div
+                key={flashcard.id}
+                className={
+                  "flex flex-col gap-2 bg-gray-100 p-2 rounded-lg my-3 py-6 px-4"
+                }
+              >
+                <p className={"font-medium"}>{flashcard.question}</p>
+                <p className={"text-slate"}>{flashcard.answer}</p>
+              </div>
+            ))}
         </div>
       </div>
     );
@@ -46,31 +100,31 @@ const Game: FC = () => {
         "flex flex-col gap-2 max-w-2xl my-10 mx-auto relative h-[80vh]"
       }
     >
-      <div className={'text-center mx-auto'}>
-        <h1 className={"text-xl my-3"}>Question #1</h1>
-        <h2 className={'text-slate'}>Click on the card to see the answer</h2>
+      <div className={"text-center mx-auto"}>
+        <h1 className={"text-xl my-3"}>Question #{questionNumber}</h1>
+        <h2 className={"text-slate"}>Click on the card to see the answer</h2>
       </div>
 
       <AnimatePresence initial={false} mode={"sync"}>
         {currentCard && gameFlashcards && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            // exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            key={currentCard.id}
-            layout
-            className={"absolute w-full top-32 z-10"}
-          >
+          <motion.div key={currentCard.id} layout className={"relative"}>
             <GameCard
               key={currentCard.id}
               question={currentCard.question}
               answer={currentCard.answer}
             />
+
+            {/*  Inner card*/}
+            <motion.div
+              className={
+                "rounded-xl p-1 w-3/4 mx-auto h-80 flex flex-col justify-center items-center shadow-lg absolute backface-hidden bg-white scale-95 top-5 -z-10 text-2xl left-1/2 -translate-x-1/2"
+              }
+            >
+              <p className={"blur text-slate"}>This is another question?</p>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
 
       <div
         className={

@@ -34,15 +34,17 @@ const GameCardSide: FC<GameCardSideProps> = ({
     },
   };
 
-  function onDragEnd(info: any) {
+  function onDragEnd(event:any,info: any) {
     if (info.offset.x > 100) {
       //swiped left
       dispatch(correctAnswer());
       dispatch(nextFlashcard());
+      event.stopPropagation();
     } else if (info.offset.x < -100) {
       //swiped right
       dispatch(wrongAnswer());
       dispatch(nextFlashcard());
+      event.stopPropagation();
     }
   }
 
@@ -63,9 +65,9 @@ const GameCardSide: FC<GameCardSideProps> = ({
       variants={cardVariants}
       animate={side}
       onClick={() => dispatch(flipCurrentFlashcard())}
-      onDragEnd={(event, info) => onDragEnd(info)}
+      onDragEnd={(event, info) => onDragEnd(event, info )}
       className={
-        "my-20 rounded-xl p-1 cursor-pointer w-3/4 mx-auto h-80 flex flex-col justify-center items-center shadow-2xl absolute backface-hidden bg-white"
+        "rounded-xl p-1 cursor-pointer w-full h-80 flex flex-col justify-center absolute items-center shadow-2xl backface-hidden bg-white"
       }
     >
           <h1 className={"text-2xl text-center"}>{text}</h1>

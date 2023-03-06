@@ -14,12 +14,16 @@ const initialState = {
   currentFlashcardIsFlipped: false,
   shuffleMode: false,
   showSummary: false,
+  deckName: "",
 };
 
 const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {
+    setDeckName(state, action: PayloadAction<string>) {
+        state.deckName = action.payload;
+    },
     setGameData(state, action: PayloadAction<any>) {
       state.initialFlashcards = action.payload.map((flashcard: any) => ({
         ...flashcard,
@@ -49,12 +53,23 @@ const gameSlice = createSlice({
     },
     correctAnswer(state) {
       state.gameFlashcards[state.currentFlashcard].status = "correct";
+      state.currentFlashcardIsFlipped = false;
     },
     wrongAnswer(state) {
       state.gameFlashcards[state.currentFlashcard].status = "wrong";
+      state.currentFlashcardIsFlipped = false;
     },
     resetGame(state) {
       state.gameFlashcards = [...state.initialFlashcards];
+      state.currentFlashcard = 0;
+      state.currentFlashcardIsFlipped = false;
+      state.shuffleMode = false;
+      state.showSummary = false;
+    },
+    reviseMistakes(state) {
+      state.gameFlashcards = state.gameFlashcards.filter((flashcard: any) => {
+        return flashcard.status === "wrong";
+      });
       state.currentFlashcard = 0;
       state.currentFlashcardIsFlipped = false;
       state.shuffleMode = false;
@@ -70,6 +85,8 @@ export const {
   correctAnswer,
   wrongAnswer,
   resetGame,
+    setDeckName,
+    reviseMistakes,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
@@ -97,3 +114,14 @@ export const getFlashcardsCount = (state: any) =>
     state.game.gameFlashcards.length;
 
 export const showSummary = (state: any) => state.game.showSummary;
+
+export const getDeckName = (state: any) => state.game.deckName;
+
+export const getCorrectAnswersCount = (state: any) =>
+    state.game.gameFlashcards.filter((flashcard: any) => flashcard.status === "correct").length;
+
+export const getWrongAnswersCount = (state: any) =>
+    state.game.gameFlashcards.filter((flashcard: any) => flashcard.status === "wrong").length;
+
+export const getQuestionNumber = (state: any) =>
+    state.game.currentFlashcard + 1;
