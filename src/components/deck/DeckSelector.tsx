@@ -2,6 +2,7 @@ import { LayoutGroup, motion } from "framer-motion";
 import { FC, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useGetDecksQuery } from "../../features/deck/deckSlice";
+import {iconSelector} from "../../utils/helpers";
 
 const DeckSelector: FC = () => {
   const [selectedDeck, setSelectedDeck] = useState(null);
@@ -20,32 +21,34 @@ const DeckSelector: FC = () => {
             <LayoutGroup>
               {data.map((deck: any) => (
                 <motion.li
-                    layout
+                  layout
                   key={deck.id}
                   className={
                     "m-4 bg-white shadow-lg rounded-xl cursor-pointer p-3 overflow-hidden"
                   }
                   style={{
-                      height: deck.id !== selectedDeck ? "7.5em" : "auto",
+                    height: deck.id !== selectedDeck ? "7.5em" : "auto",
                   }}
                   onClick={() => {
-                      if(deck.id === selectedDeck) {
-                            setSelectedDeck(null);
-                      }
-                        else {
-                            setSelectedDeck(deck.id);
-                      }
+                    if (deck.id === selectedDeck) {
+                      setSelectedDeck(null);
+                    } else {
+                      setSelectedDeck(deck.id);
+                    }
                   }}
                 >
-                  <div
-                    className={"flex items-center gap-3"}
-                  >
+                  <motion.div layout className={"flex items-center gap-3"}>
                     <div
+                        style={
+                            {
+                                backgroundColor: iconSelector(deck.name).backgroundColor,
+                            }
+                        }
                       className={
-                        "w-24 h-24 bg-red-50 rounded-xl flex justify-center items-center"
+                        "w-24 h-24 rounded-xl flex justify-center items-center"
                       }
                     >
-                      <p className={"text-3xl"}>🔥</p>
+                      <p className={"text-3xl"}>{iconSelector(deck.name).emoji}</p>
                     </div>
                     <div>
                       <h3 className={"font-medium flex-1 text-xl text-center"}>
@@ -55,28 +58,36 @@ const DeckSelector: FC = () => {
                         {deck.flashcards.length} questions
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                   <div>
-                    {deck.flashcards.map((flashcard: any) => (
-                      <div
-                        key={flashcard.id}
-                        className={
-                          "flex flex-col gap-2 bg-gray-100 p-2 rounded-lg my-3"
-                        }
-                      >
-                        <p className={"font-medium"}>{flashcard.question}</p>
-                        <p className={"text-slate"}>{flashcard.answer}</p>
-                      </div>
-                    ))}
+                    {deck.id === selectedDeck
+                      ? deck.flashcards.map((flashcard: any) => (
+                          <motion.div
+                            layout
+                            key={flashcard.id}
+                            className={
+                              "flex flex-col gap-2 bg-gray-100 p-2 rounded-lg my-3"
+                            }
+                          >
+                            <p className={"font-medium"}>
+                              {flashcard.question}
+                            </p>
+                            <p className={"text-slate"}>{flashcard.answer}</p>
+                          </motion.div>
+                        ))
+                      : null}
                   </div>
-                  <Link
-                    to={`/learning/${deck.id}`}
-                    className={
-                      "bg-quizBlue text-white font-medium text-center w-full p-3 rounded-lg mx-auto block w-full"
-                    }
-                  >
-                    Start learning
-                  </Link>
+
+                  {deck.id === selectedDeck ? (
+                    <Link
+                      to={`/learning/${deck.id}`}
+                      className={
+                        "bg-quizBlue text-white font-medium text-center w-full p-3 rounded-lg mx-auto block w-full"
+                      }
+                    >
+                      Start learning
+                    </Link>
+                  ) : null}
                 </motion.li>
               ))}
             </LayoutGroup>
