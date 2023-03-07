@@ -1,5 +1,5 @@
 import { LayoutGroup, motion } from "framer-motion";
-import {FC, useRef, useState} from "react";
+import {FC, useState} from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useGetDecksQuery } from "../../features/deck/deckSlice";
 import { iconSelector } from "../../utils/helpers";
@@ -10,7 +10,7 @@ const DeckSelector: FC = () => {
   const { data, isLoading, isSuccess } = useGetDecksQuery({});
 
     if (isLoading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   if (isSuccess) {

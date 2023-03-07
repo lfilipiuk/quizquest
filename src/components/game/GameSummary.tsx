@@ -24,7 +24,7 @@ const GameSummary : FC = () => {
             <h1 className={"text-3xl mx-auto"}>
                 You scored {correctAnswers} out of {flashcardsCount}!
             </h1>
-            <h2 className={"text-xl text-slate mx-auto"}>
+            <h2 className={"text-xl text-slate mx-auto px-2 text-center md:px-0"}>
                 Here are the things you still need to revise:
             </h2>
 

@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type GameFlashcard = {
   id: number;
@@ -22,7 +22,7 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     setDeckName(state, action: PayloadAction<string>) {
-        state.deckName = action.payload;
+      state.deckName = action.payload;
     },
     setGameData(state, action: PayloadAction<any>) {
       state.initialFlashcards = action.payload.map((flashcard: any) => ({
@@ -30,7 +30,7 @@ const gameSlice = createSlice({
         status: "unanswered",
       }));
       state.gameFlashcards = [...state.initialFlashcards];
-      if(state.gameFlashcards.length > 0){
+      if (state.gameFlashcards.length > 0) {
         state.gameFlashcards[0].status = "current";
       }
     },
@@ -45,7 +45,7 @@ const gameSlice = createSlice({
       state.currentFlashcard++;
       state.currentFlashcardIsFlipped = false;
 
-      if(state.currentFlashcard >= state.gameFlashcards.length){
+      if (state.currentFlashcard >= state.gameFlashcards.length) {
         state.showSummary = true;
         return;
       }
@@ -70,6 +70,11 @@ const gameSlice = createSlice({
       state.gameFlashcards = state.gameFlashcards.filter((flashcard: any) => {
         return flashcard.status === "wrong";
       });
+
+      state.gameFlashcards.forEach((flashcard: any) => {
+        flashcard.status = "unanswered";
+      });
+
       state.currentFlashcard = 0;
       state.currentFlashcardIsFlipped = false;
       state.shuffleMode = false;
@@ -85,8 +90,8 @@ export const {
   correctAnswer,
   wrongAnswer,
   resetGame,
-    setDeckName,
-    reviseMistakes,
+  setDeckName,
+  reviseMistakes,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
@@ -108,20 +113,24 @@ export const getProgressData: any = (state: any) => {
 export const getGameFlashcards = (state: any) => state.game.gameFlashcards;
 
 export const getCurrentFlashcardIndex = (state: any) =>
-    state.game.currentFlashcard;
+  state.game.currentFlashcard;
 
 export const getFlashcardsCount = (state: any) =>
-    state.game.gameFlashcards.length;
+  state.game.gameFlashcards.length;
 
 export const showSummary = (state: any) => state.game.showSummary;
 
 export const getDeckName = (state: any) => state.game.deckName;
 
 export const getCorrectAnswersCount = (state: any) =>
-    state.game.gameFlashcards.filter((flashcard: any) => flashcard.status === "correct").length;
+  state.game.gameFlashcards.filter(
+    (flashcard: any) => flashcard.status === "correct"
+  ).length;
 
 export const getWrongAnswersCount = (state: any) =>
-    state.game.gameFlashcards.filter((flashcard: any) => flashcard.status === "wrong").length;
+  state.game.gameFlashcards.filter(
+    (flashcard: any) => flashcard.status === "wrong"
+  ).length;
 
 export const getQuestionNumber = (state: any) =>
-    state.game.currentFlashcard + 1;
+  state.game.currentFlashcard + 1;

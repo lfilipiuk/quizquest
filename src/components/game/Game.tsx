@@ -2,17 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   correctAnswer,
   flipCurrentFlashcard,
-  getCorrectAnswersCount,
   getCurrentFlashcard,
-  getDeckName,
-  getFlashcardsCount,
   getGameFlashcards,
   getProgressData,
   getQuestionNumber,
-  getWrongAnswersCount,
-  isCurrentFlashcardFlipped,
   nextFlashcard,
-  reviseMistakes,
   showSummary,
   wrongAnswer,
 } from "../../features/game/gameSlice";
@@ -21,7 +15,6 @@ import GameCard from "./GameCard";
 import { AnimatePresence, motion } from "framer-motion";
 import ProgressBar from "../ui/ProgressBar";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
-import { iconSelector } from "../../utils/helpers";
 import GameSummary from "./GameSummary";
 
 const Game: FC = () => {
@@ -32,7 +25,6 @@ const Game: FC = () => {
   const questionNumber = useSelector(getQuestionNumber);
 
   const [answerState, setAnswerState] = useState("pending");
-    const [animateCard, setAnimateCard] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -71,7 +63,7 @@ const Game: FC = () => {
 
         setTimeout(() => {
           setKeyPressed(false);
-        }, 500); // Set delay for half a second
+        }, 100)
       }
     };
 
@@ -90,7 +82,7 @@ const Game: FC = () => {
             case "incorrect":
                 return { x: "-100%", opacity: 0};
             default:
-                return {}; // No animation for pending state
+                return {};
         }
     };
 
@@ -111,7 +103,7 @@ const Game: FC = () => {
   return (
     <div
       className={
-        "flex flex-col gap-2 max-w-2xl my-10 mx-auto relative h-[80vh]"
+        "flex flex-col gap-2 max-w-2xl md:my-10 mx-auto relative h-[80vh]"
       }
     >
       <div className={"text-center mx-auto my-10"}>
@@ -156,7 +148,7 @@ const Game: FC = () => {
                 "rounded-xl p-1 w-full mx-auto h-80 flex flex-col justify-center items-center shadow-lg absolute backface-hidden bg-white text-2xl"
               }
             >
-              <p className={"blur text-slate"}>This is another question?</p>
+              <p className={"blur text-slate text-center"}>This is another question?</p>
             </motion.div>
             </div>
           </motion.div>
@@ -165,16 +157,16 @@ const Game: FC = () => {
 
       <div
         className={
-          "absolute bottom-0 w-full flex flex-col justify-center items-center"
+          "absolute -bottom-10 w-full flex flex-col justify-center items-center px-2"
         }
       >
         {progressData?.length > 0 && <ProgressBar progress={progressData} />}
 
-        <div className={"flex gap-2 mt-8"}>
+        <div className={"flex gap-2 mt-8 flex-col md:flex-row w-full items-center justify-center"}>
           <button
               onClick={() => handleWrongAnswer()}
             className={
-              "bg-red-500 text-white text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm"
+              "bg-red-500 text-white text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm w-full md:w-auto"
             }
           >
             <p>Not yet</p>
@@ -190,7 +182,7 @@ const Game: FC = () => {
           <button
                 onClick={() => dispatch(flipCurrentFlashcard())}
             className={
-              "bg-white text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm"
+              "bg-white text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm w-full md:w-auto"
             }
           >
             <p>Flip</p>
@@ -206,7 +198,7 @@ const Game: FC = () => {
           <button
                 onClick={() => handleCorrectAnswer()}
             className={
-              "bg-green-400 text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm"
+              "bg-green-400 text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm w-full md:w-auto"
             }
           >
             <p>I know this</p>

@@ -26,7 +26,7 @@ export const DeckQuestions: FC = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   return (

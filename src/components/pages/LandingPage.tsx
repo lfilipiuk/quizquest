@@ -9,13 +9,13 @@ import {Link} from "react-router-dom";
 const LandingPage = () => {
   return (
     <>
-      <div className={"max-w-4xl mx-auto"}>
+      <div className={"max-w-4xl mx-auto mx-2 md:mx-0"}>
         <header className={"flex flex-col gap-5 my-10"}>
-          <h1 className={"font-medium text-center text-4xl mx-auto w-3/4 my-5"}>
+          <h1 className={"font-medium text-center md:text-4xl text-3xl mx-auto w-3/4 md:my-5"}>
             Become a top-tier
             <span className={"block"}>developer with fun quizzes</span>
           </h1>
-          <p className={"text-slate text-center text-xl w-3/5 mx-auto my-5"}>
+          <p className={"text-slate text-center text-xl md:w-3/5 w-4/5 mx-auto md:my-5"}>
             {" "}
             Quizzes to help you master development theory with ease. Learning
             has never been so fun and so easy.
@@ -31,7 +31,7 @@ const LandingPage = () => {
         </header>
 
         <main>
-          <div className={"grid grid-cols-2 gap-6"}>
+          <div className={"grid md:grid-cols-2 gap-6"}>
             <LandingCard
               title={"Many quizzes."}
               subtitle={
@@ -86,7 +86,7 @@ const LandingPage = () => {
             </div>
             <Link
               className={
-                "py-3 px-6 w-44 h-12 rounded-full bg-white text-black font-medium w-40 shadow-lg mx-auto text-center"
+                "py-3 px-6 w-44 md:h-12 rounded-full bg-white text-black font-medium w-40 shadow-lg mx-auto text-center"
               }
               to={"/home"}
             >
