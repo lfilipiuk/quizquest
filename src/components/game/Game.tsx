@@ -103,10 +103,10 @@ const Game: FC = () => {
   return (
     <div
       className={
-        "flex flex-col gap-2 max-w-2xl md:my-10 mx-auto relative h-[80vh]"
+        "flex flex-col gap-2 max-w-2xl md:my-10 mx-auto relative md:h-[80vh] h-[90vh]"
       }
     >
-      <div className={"text-center mx-auto my-10"}>
+      <div className={"text-center mx-auto md:my-10"}>
         <h1 className={"text-xl my-3"}>Question #{questionNumber}</h1>
         <h2 className={"text-slate"}>Click on the card to see the answer</h2>
       </div>
@@ -157,7 +157,7 @@ const Game: FC = () => {
 
       <div
         className={
-          "absolute -bottom-10 w-full flex flex-col justify-center items-center px-2"
+          "absolute bottom-16 md:bottom-0 w-full flex flex-col justify-center items-center px-2"
         }
       >
         {progressData?.length > 0 && <ProgressBar progress={progressData} />}

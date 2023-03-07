@@ -5,7 +5,7 @@ const BackHomeButton = () => {
   return (
     <Link
       to={"/home"}
-      className="bg-gray-200 rounded-full p-2 flex items-center justify-center gap-2 w-40 top-10 absolute left-10"
+      className="bg-gray-200 rounded-full p-2 flex items-center justify-center gap-2 w-40 md:top-10 absolute md:left-10 top-2 left-2"
     >
         <HiArrowLeft className={"text-slate"} />
       Back to home

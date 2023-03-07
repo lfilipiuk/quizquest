@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 const LandingPage = () => {
   return (
     <>
-      <div className={"max-w-4xl mx-auto mx-2 md:mx-0"}>
+      <div className={"max-w-4xl md:mx-auto mx-2"}>
         <header className={"flex flex-col gap-5 my-10"}>
           <h1 className={"font-medium text-center md:text-4xl text-3xl mx-auto w-3/4 md:my-5"}>
             Become a top-tier
