@@ -8,6 +8,10 @@ import {
     reviseMistakes
 } from "../../features/game/gameSlice";
 import {useDispatch, useSelector} from "react-redux";
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+import {Link} from "react-router-dom";
+import {HiArrowLeft} from "react-icons/hi";
 
 
 
@@ -18,6 +22,27 @@ const GameSummary : FC = () => {
     const wrongAnswers = useSelector(getWrongAnswersCount);
     const flashcardsCount = useSelector(getFlashcardsCount);
     const gameFlashcards = useSelector(getGameFlashcards);
+    const { width, height } = useWindowSize()
+
+    if(correctAnswers === flashcardsCount) {
+        return(
+        <div className={"gap-2 max-w-2xl my-52 mx-auto flex flex-col items-center justify-center"}>
+            <h1 className={"text-3xl mx-auto text-center"}>
+                Congratulations! You've mastered {deckName}!
+            </h1>
+            <Confetti
+                width={width}
+                height={height}
+            />
+            <Link
+                to={"/home"}
+                className="bg-quizBlue text-white text-center rounded-full p-2 w-40 my-5 hover:-translate-y-1 transform transition duration-200 ease-in-out"
+            >
+                More decks
+            </Link>
+        </div>
+        )
+    }
 
     return (
         <div className={"flex flex-col gap-2 max-w-2xl my-10 mx-auto relative"}>

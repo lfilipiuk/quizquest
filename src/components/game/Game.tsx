@@ -4,6 +4,7 @@ import {
   flipCurrentFlashcard,
   getCurrentFlashcard,
   getGameFlashcards,
+  getNextFlashcard,
   getProgressData,
   getQuestionNumber,
   nextFlashcard,
@@ -23,6 +24,7 @@ const Game: FC = () => {
   const summary = useSelector(showSummary);
   const gameFlashcards = useSelector(getGameFlashcards);
   const questionNumber = useSelector(getQuestionNumber);
+  const followingFlashcard = useSelector(getNextFlashcard);
 
   const [answerState, setAnswerState] = useState("pending");
 
@@ -33,13 +35,12 @@ const Game: FC = () => {
   const handleCorrectAnswer = () => {
     dispatch(correctAnswer());
     setAnswerState("correct");
-  }
+  };
 
   const handleWrongAnswer = () => {
     dispatch(wrongAnswer());
     setAnswerState("incorrect");
-  }
-
+  };
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -55,7 +56,7 @@ const Game: FC = () => {
             dispatch(flipCurrentFlashcard());
             break;
           case "ArrowLeft":
-            handleWrongAnswer()
+            handleWrongAnswer();
             break;
           default:
             break;
@@ -63,7 +64,7 @@ const Game: FC = () => {
 
         setTimeout(() => {
           setKeyPressed(false);
-        }, 100)
+        }, 100);
       }
     };
 
@@ -74,31 +75,30 @@ const Game: FC = () => {
     };
   }, [dispatch, keyPressed]);
 
-
-    const handleAnswer = (answerState: string) => {
-        switch (answerState) {
-            case "correct":
-                return { x: "100%", opacity: 0};
-            case "incorrect":
-                return { x: "-100%", opacity: 0};
-            default:
-                return {};
-        }
-    };
-
-    const innerVariants = (answerState: string) => {
-        switch (answerState) {
-            case "pending":
-                return { scale: 0.95, translateY: "5%" };
-            default:
-                return { scale: 1, translateY: "0%"};
-        }
+  const handleAnswer = (answerState: string) => {
+    switch (answerState) {
+      case "correct":
+        return { x: "100%", opacity: 0, transition: { duration: 0.5, delay: 0.1 } };
+      case "incorrect":
+        return { x: "-100%", opacity: 0, transition: {duration: 0.5, delay: 0.1 } };
+      default:
+        return {};
     }
+  };
+
+  const innerVariants = (answerState: string) => {
+    switch (answerState) {
+      case "pending":
+        return { scale: 0.95, translateY: "5%" };
+      default:
+        return { scale: 1, translateY: "0%" };
+    }
+  };
 
   if (summary) {
+
     return <GameSummary />;
   }
-
 
   return (
     <div
@@ -115,42 +115,49 @@ const Game: FC = () => {
         {currentCard && gameFlashcards && (
           <motion.div className={"relative"}>
             {/* Outer card */}
-              <motion.div
-                  key={currentCard.id}
-                  layout
-                  animate={handleAnswer(answerState)}
-                  transition={{ duration: 0.4 , delay: 0.05}}
-                  onAnimationComplete={() => {
-                      if (answerState !== "pending") {
-                        setAnswerState("pending")
-                        // Trigger the next card when the animation is complete
-                        dispatch(nextFlashcard());
-                      }
-                      }}
-              >
-                  <GameCard
-                      // key={currentCard.id}
-                      question={currentCard.question}
-                      answer={currentCard.answer}
-                      answerState={answerState}
-                  />
-              </motion.div>
-
+            <motion.div
+              key={currentCard.id}
+              layout
+              animate={handleAnswer(answerState)}
+              // transition={{ duration: 0.5, delay: 0.05 }}
+              onAnimationComplete={() => {
+                if (answerState !== "pending") {
+                  setAnswerState("pending");
+                  // Trigger the next card when the animation is complete
+                  dispatch(nextFlashcard());
+                }
+              }}
+            >
+              <GameCard
+                // key={currentCard.id}
+                question={currentCard.question}
+                answer={currentCard.answer}
+                answerState={answerState}
+              />
+            </motion.div>
 
             {/*  Inner card*/}
-            <div
-                className={"absolute w-3/4 left-1/2 -translate-x-1/2 -z-10"}>
-            <motion.div
-                key={currentCard.id}
-                animate={innerVariants(answerState)}
-                transition={{ duration: 0.5 , delay: 0.05}}
-              className={
-                "rounded-xl p-1 w-full mx-auto h-80 flex flex-col justify-center items-center shadow-lg absolute backface-hidden bg-white text-2xl"
-              }
-            >
-              <p className={"blur text-slate text-center"}>This is another question?</p>
-            </motion.div>
-            </div>
+            {followingFlashcard && (
+              <div
+                className={
+                  "absolute md:w-3/4 w-11/12 left-1/2 -translate-x-1/2 -z-10"
+                }
+              >
+                <motion.div
+                  key={currentCard.id}
+                  animate={innerVariants(answerState)}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className={
+                    "rounded-xl p-1 w-full mx-auto h-80 flex flex-col justify-center items-center shadow-lg absolute backface-hidden bg-white text-2xl"
+                  }
+                >
+                  <p className={"text-center"}>
+                    {followingFlashcard.question}
+                  </p>
+                </motion.div>
+              </div>
+            )}
+
           </motion.div>
         )}
       </AnimatePresence>
@@ -162,9 +169,13 @@ const Game: FC = () => {
       >
         {progressData?.length > 0 && <ProgressBar progress={progressData} />}
 
-        <div className={"flex gap-2 mt-8 flex-col md:flex-row w-full items-center justify-center"}>
+        <div
+          className={
+            "flex gap-2 mt-8 flex-col md:flex-row w-full items-center justify-center"
+          }
+        >
           <button
-              onClick={() => handleWrongAnswer()}
+            onClick={() => handleWrongAnswer()}
             className={
               "bg-red-500 text-white text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm w-full md:w-auto"
             }
@@ -180,9 +191,9 @@ const Game: FC = () => {
           </button>
 
           <button
-                onClick={() => dispatch(flipCurrentFlashcard())}
+            onClick={() => dispatch(flipCurrentFlashcard())}
             className={
-              "bg-white text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm w-full md:w-auto"
+              "bg-white text-sm md:flex hidden items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm w-full md:w-auto"
             }
           >
             <p>Flip</p>
@@ -196,7 +207,7 @@ const Game: FC = () => {
           </button>
 
           <button
-                onClick={() => handleCorrectAnswer()}
+            onClick={() => handleCorrectAnswer()}
             className={
               "bg-green-400 text-sm flex items-center justify-center gap-1 py-2 px-4 rounded-full shadow-sm w-full md:w-auto"
             }

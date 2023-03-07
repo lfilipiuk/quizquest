@@ -15,14 +15,14 @@ const LandingPage = () => {
             Become a top-tier
             <span className={"block"}>developer with fun quizzes</span>
           </h1>
-          <p className={"text-slate text-center text-xl md:w-3/5 w-4/5 mx-auto md:my-5"}>
+          <p className={"text-slate text-center text-xl md:w-3/5 w-4/5 mx-auto"}>
             {" "}
             Quizzes to help you master development theory with ease. Learning
             has never been so fun and so easy.
           </p>
           <Link
             className={
-              "py-3 px-6 w-44 rounded-full bg-quizBlue text-white font-medium w-40 shadow-lg mx-auto text-center"
+              "py-3 px-6 w-44 rounded-full bg-quizBlue text-white font-medium w-40 shadow-lg mx-auto text-center md:mb-10 hover:-translate-y-0.5 transition duration-300 ease-in-out"
             }
             to={"/home"}
           >
@@ -44,7 +44,7 @@ const LandingPage = () => {
             <LandingCard
               title={"Simple learning experience."}
               subtitle={
-                "Get a question and decide if you know or not - or get a hint."
+                "Get a question and decide if you know or not."
               }
               background={"bg-green-50"}
               image={landingImage2}
@@ -75,7 +75,7 @@ const LandingPage = () => {
         </main>
 
         <footer>
-          <div className={"bg-quizBlue text-white p-8 flex items-center justify-items-end rounded-xl"}>
+          <div className={"bg-quizBlue text-white md:p-8 p-4 flex items-center justify-items-end rounded-xl flex-col md:flex-row"}>
             <div className={'max-w-xl'}>
               <h2 className={"text-3xl font-medium my-2"}>Ready to level up?</h2>
               <p>
@@ -86,7 +86,7 @@ const LandingPage = () => {
             </div>
             <Link
               className={
-                "py-3 px-6 w-44 md:h-12 rounded-full bg-white text-black font-medium w-40 shadow-lg mx-auto text-center"
+                "py-3 px-6 md:w-44 w-full md:h-12 rounded-full bg-white text-black font-medium shadow-lg mx-auto text-center mt-5 md:mt-0 hover:-translate-y-0.5 transition duration-300 ease-in-out"
               }
               to={"/home"}
             >

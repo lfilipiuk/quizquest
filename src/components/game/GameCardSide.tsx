@@ -60,6 +60,7 @@ const GameCardSide: FC<GameCardSideProps> = ({
     <motion.div
       drag={"x"}
       // style={{ x, background }}
+      initial={ false }
       dragConstraints={{ left: 0, right: 0 }}
       whileTap={{ scale: 0.9 }}
       variants={cardVariants}
@@ -70,7 +71,11 @@ const GameCardSide: FC<GameCardSideProps> = ({
         "rounded-xl p-1 cursor-pointer w-full h-80 flex flex-col justify-center absolute items-center shadow-2xl backface-hidden bg-white"
       }
     >
-          <h1 className={"text-2xl text-center"}>{text}</h1>
+          <motion.h1
+              // initial={{ opacity: 0}}
+              // animate={{ opacity: 1}}
+              transition={{ duration: 1, delay: 0.1 }}
+              className={"text-2xl text-center"}>{text}</motion.h1>
     </motion.div>
   );
 };

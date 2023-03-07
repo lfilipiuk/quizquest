@@ -52,7 +52,7 @@ const DeckSelector: FC = () => {
                         {iconSelector(deck.name).emoji}
                       </p>
                     </div>
-                    <div>
+                    <div className={'pl-3 flex flex-col gap-1'}>
                       <h3 className={"font-medium flex-1 text-xl text-center"}>
                         {deck.name}
                       </h3>

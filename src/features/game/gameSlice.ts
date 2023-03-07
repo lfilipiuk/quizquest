@@ -98,6 +98,13 @@ export default gameSlice.reducer;
 export const getCurrentFlashcard = (state: any) =>
   state.game.initialFlashcards[state.game.currentFlashcard];
 
+export const getNextFlashcard = (state: any) => {
+  if (state.game.currentFlashcard + 1 >= state.game.initialFlashcards.length) {
+    return null;
+  }
+  return state.game.initialFlashcards[state.game.currentFlashcard + 1];
+};
+
 export const isCurrentFlashcardFlipped = (state: any) =>
   state.game.currentFlashcardIsFlipped;
 

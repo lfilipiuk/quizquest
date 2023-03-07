@@ -27,9 +27,6 @@ const GameCard: FC<GameCardProps> = ({ question, answer, answerState}: GameCardP
     wrong: { x: "-100%", opacity: 0, z: -1 },
   };
 
-  // Define animation transition
-  const transition = { duration: 0.5 };
-
   const handleAnswer = (answerState: string) => {
     switch (answerState) {
       case "correct":
@@ -42,7 +39,7 @@ const GameCard: FC<GameCardProps> = ({ question, answer, answerState}: GameCardP
   };
 
   return (
-    <div className={"absolute w-3/4 left-1/2 -translate-x-1/2"}>
+    <div className={"absolute md:w-3/4 w-11/12 left-1/2 -translate-x-1/2"}>
         <GameCardSide text={question} side={isFlipped ? "A" : "B"} />
         <GameCardSide text={answer} side={isFlipped ? "B" : "A"} />
     </div>
