@@ -11,11 +11,11 @@ const LandingPage = () => {
     <>
       <div className={"max-w-4xl md:mx-auto mx-2"}>
         <header className={"flex flex-col gap-5 my-10"}>
-          <h1 className={"font-medium text-center md:text-4xl text-3xl mx-auto w-3/4 md:my-5"}>
+          <h1 className={"font-medium text-center md:text-4xl text-3xl mx-auto w-3/4 md:mt-5"}>
             Become a top-tier
             <span className={"block"}>developer with fun quizzes</span>
           </h1>
-          <p className={"text-slate text-center text-xl md:w-3/5 w-4/5 mx-auto"}>
+          <p className={"text-slate text-center text-xl md:w-3/5 w-4/5 mx-auto md:my-5"}>
             {" "}
             Quizzes to help you master development theory with ease. Learning
             has never been so fun and so easy.
