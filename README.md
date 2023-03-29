@@ -18,6 +18,8 @@ When you are done with all the flashcards, a summary will appear where you decid
 - Redux
 - Vite
 - Tailwind
+- Testing Library
+- Vitest
 
 ## Installation
 - Clone the repository using `https://github.com/lfilipiuk/quizquest.git`
