@@ -1,12 +1,11 @@
-import {FC} from "react";
+import { FC } from "react";
 
-const Header: FC = () => {
+const Footer: FC = () => {
+  return (
+    <div className="text-slate text-center mt-10" data-testid={"footer"}>
+      <p>QuizQuest 2023, made by Łukasz Filipiuk</p>
+    </div>
+  );
+};
 
-    return (
-        <div className={'text-slate text-center mt-10'}>
-            <p>QuizQuest 2023, made by Łukasz Filipiuk</p>
-        </div>
-    );
-}
-
-export default Header;
+export default Footer;
