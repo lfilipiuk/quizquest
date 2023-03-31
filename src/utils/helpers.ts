@@ -12,32 +12,60 @@ interface CategoryEmoji {
 const categoryEmoji: CategoryEmoji = {
     "html": {
         emoji: "🌍",
-        backgroundColor: "#F7DDBE"
+        backgroundColor: "#FAC7A8"
     },
     "css": {
         emoji: "🎨",
-        backgroundColor: "#C2DDE2"
+        backgroundColor: "#B4CEF8"
     },
     "javascript": {
         emoji: "🤖",
-        backgroundColor: "#FCD0BA"
+        backgroundColor: "#FFFCD2"
+    },
+    "hooks":{
+        emoji: "🎣",
+        backgroundColor: "#DBCAF6"
     },
     "react": {
         emoji: "⚛️",
-        backgroundColor: "#cec2e2"
+        backgroundColor: "#BFF1FF"
     },
     "node": {
         emoji: "🌲",
-        backgroundColor: "#cbe2c2"
+        backgroundColor: "#C3E7C7"
     },
     "typescript": {
-        emoji: "🔥",
-        backgroundColor: "#F7DDBE"
+        emoji: "📘",
+        backgroundColor: "#A6D4F9"
     },
     "python": {
         emoji: "🐍",
         backgroundColor: "#cee2c2"
-    }
+    },
+    "sql": {
+        emoji: "🗃️",
+        backgroundColor: "#FDE2B9"
+    },
+    "git":{
+        emoji: "📝",
+        backgroundColor: "#F9B7B3"
+    },
+    "responsive":{
+        emoji: "🔀",
+        backgroundColor: "#DEC9F1"
+    },
+    "testing":{
+        emoji: "🧪",
+        backgroundColor: "#C3E6BE"
+    },
+    "clean":{
+        emoji: "🧹",
+        backgroundColor: "#B2EBE5"
+    },
+    "test":{
+        emoji: "🚦",
+        backgroundColor: "#F9BDC2"
+    },
 }
 
 const defaultEmoji = {
