@@ -1,6 +1,6 @@
 import { apiSlice } from "../api/apiSlice";
 import { get, ref } from "firebase/database";
-import { database } from "@/utils/firebaseUtil";
+import { database } from "../../utils/firebaseUtil";
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

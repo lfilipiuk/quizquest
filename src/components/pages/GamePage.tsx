@@ -1,8 +1,8 @@
-import { resetGame, setGameData,setDeckName } from "@/features/game/gameSlice";
+import { resetGame, setGameData,setDeckName } from "../../features/game/gameSlice";
 import { useDispatch } from "react-redux";
 import Game from "../game/Game";
 import { useParams } from "react-router-dom";
-import { useGetDecksQuery } from "@/features/deck/deckSlice";
+import { useGetDecksQuery } from "../../features/deck/deckSlice";
 import { useCallback, useEffect } from "react";
 import BackHomeButton from "../ui/BackHomeButton";
 

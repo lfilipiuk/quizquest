@@ -1,8 +1,8 @@
 import { LayoutGroup, motion } from "framer-motion";
 import {FC, useState} from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useGetDecksQuery } from "@/features/deck/deckSlice";
-import { iconSelector } from "@/utils/helpers";
+import { useGetDecksQuery } from "../../features/deck/deckSlice";
+import { iconSelector } from "../../utils/helpers";
 
 const DeckSelector: FC = () => {
   const [selectedDeck, setSelectedDeck] = useState(null);
