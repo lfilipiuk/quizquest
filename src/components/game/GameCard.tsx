@@ -1,16 +1,9 @@
-import {FC, useCallback, useEffect, useRef, useState} from "react";
-import { isCurrentFlashcardFlipped } from "../../features/game/gameSlice";
-import { useDispatch, useSelector } from "react-redux";
+import {FC} from "react";
+import { isCurrentFlashcardFlipped } from "@/features/game/gameSlice";
+import {  useSelector } from "react-redux";
 
 import GameCardSide from "./GameCardSide";
 
-import {
-  correctAnswer,
-  flipCurrentFlashcard,
-  nextFlashcard,
-  wrongAnswer,
-} from "../../features/game/gameSlice";
-import { motion } from "framer-motion";
 
 interface GameCardProps {
   question: string;

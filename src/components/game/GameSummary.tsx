@@ -1,19 +1,16 @@
 import {FC} from "react";
-import {iconSelector} from "../../utils/helpers";
+import {iconSelector} from "@/utils/helpers";
 import {
     getCorrectAnswersCount,
     getDeckName,
     getFlashcardsCount, getGameFlashcards,
     getWrongAnswersCount,
     reviseMistakes
-} from "../../features/game/gameSlice";
+} from "@/features/game/gameSlice";
 import {useDispatch, useSelector} from "react-redux";
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import {Link} from "react-router-dom";
-import {HiArrowLeft} from "react-icons/hi";
-
-
 
 const GameSummary : FC = () => {
     const dispatch = useDispatch();

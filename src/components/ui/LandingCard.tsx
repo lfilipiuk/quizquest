@@ -9,7 +9,9 @@ type LandingCardProps = {
 const LandingCard = ({ title, subtitle, background, image } : LandingCardProps) => {
 
     return (
-        <div className={'bg-white rounded-lg block p-2'}>
+        <div
+            data-testid={"landing-card"}
+            className={'bg-white rounded-lg block p-2'}>
             <div
                 data-testid={'background-image'}
                 className={`${background} rounded-lg p-3 h-60 flex items-center align-center`}>

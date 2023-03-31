@@ -2,11 +2,11 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import QuestionList from "./QuestionList";
 import { useDispatch } from "react-redux";
-import { resetGame } from "../../features/game/gameSlice";
+import { resetGame } from "@/features/game/gameSlice";
 import LinkButton from "../ui/LinkButton";
 import {
   useGetDecksQuery,
-} from "../../features/deck/deckSlice";
+} from "@/features/deck/deckSlice";
 
 export const DeckQuestions: FC = () => {
   //useParams to get deck name

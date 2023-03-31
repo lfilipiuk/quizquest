@@ -6,15 +6,14 @@ import {
 import QuestionListItem from "./QuestionListItem";
 
 interface FlashcardListProps {
-  deck: [];
-
+  deck?: any[];
 }
 
-interface FlashcardItem {
+export interface FlashcardItem {
   id: Key;
   question: string;
   answer: string;
-  status?: string | undefined;
+  status?: "none" | "correct" | "wrong";
 }
 
 const QuestionList: FC<FlashcardListProps> = ({ deck }: FlashcardListProps) => {

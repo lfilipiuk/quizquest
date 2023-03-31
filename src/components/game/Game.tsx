@@ -10,7 +10,7 @@ import {
   nextFlashcard,
   showSummary,
   wrongAnswer,
-} from "../../features/game/gameSlice";
+} from "@/features/game/gameSlice";
 import { FC, useEffect, useState } from "react";
 import GameCard from "./GameCard";
 import { AnimatePresence, motion } from "framer-motion";

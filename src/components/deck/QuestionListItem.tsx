@@ -3,23 +3,28 @@ import { FC } from "react";
 interface FlashcardProps {
   question: string;
   answer: string;
-  status?: string;
+  status?: "none" | "correct" | "wrong";
 }
 
 const QuestionListItem: FC<FlashcardProps> = ({
   question,
   answer,
-  status,
+  status = "none",
 }: FlashcardProps) => {
+  const getStatusClass = () => {
+    switch (status) {
+      case "correct":
+        return "bg-green-100";
+      case "wrong":
+        return "bg-red-100";
+      default:
+        return "bg-gray-100";
+    }
+  };
+
   return (
     <li
-      className={`border border-1 border-gray-400 my-5 rounded-xl p-4 ${
-        status === "correct"
-          ? "bg-green-100"
-          : status === "wrong"
-          ? "bg-red-100"
-          : "bg-gray-100"
-      }`}
+      className={`border border-1 border-gray-400 my-5 rounded-xl p-4 ${getStatusClass()}`}
     >
       <h4 className={"text-center font-semibold mb-2"}>{question}</h4>
       <h4 className={"italic font-normal"}>{answer}</h4>

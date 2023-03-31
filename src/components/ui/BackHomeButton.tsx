@@ -4,12 +4,11 @@ import { HiArrowLeft } from "react-icons/hi";
 const BackHomeButton = () => {
   return (
     <Link
+      data-testid="back-home-button"
       to={"/home"}
       className="bg-gray-200 rounded-full p-2 md:flex hidden items-center justify-center gap-2 w-40 md:top-10 absolute md:left-10 top-2 left-2"
     >
-        <HiArrowLeft
-            data-testid="back-home-icon"
-            className={"text-slate"} />
+      <HiArrowLeft data-testid="back-home-icon" className={"text-slate"} />
       Back to home
     </Link>
   );
