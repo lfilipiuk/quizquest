@@ -11,5 +11,10 @@ export default defineConfig(() => {
         dts: true, // generate TypeScript declaration
       }),
     ],
+    resolve: {
+      alias: {
+        '@': '/src'
+      }
+    }
   };
 });

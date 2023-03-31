@@ -1,5 +1,5 @@
 import {FC} from "react";
-import { isCurrentFlashcardFlipped } from "../../features/game/gameSlice";
+import { isCurrentFlashcardFlipped } from "@/features/game/gameSlice";
 import {  useSelector } from "react-redux";
 
 import GameCardSide from "./GameCardSide";

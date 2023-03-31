@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import deckReducer from "../features/deck/deckSlice";
-import gameReducer from "../features/game/gameSlice";
-import {apiSlice} from "../features/api/apiSlice";
+import gameReducer from "@/features/game/gameSlice";
+import {apiSlice} from "@/features/api/apiSlice";
 
 // export type DeckReducer = ReturnType<typeof deckReducer>;
 

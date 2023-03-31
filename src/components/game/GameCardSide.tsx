@@ -6,7 +6,7 @@ import {
   flipCurrentFlashcard,
   nextFlashcard,
   wrongAnswer,
-} from "../../features/game/gameSlice";
+} from "@/features/game/gameSlice";
 
 interface GameCardSideProps {
   text: string;
