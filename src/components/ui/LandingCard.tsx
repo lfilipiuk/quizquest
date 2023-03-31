@@ -1,4 +1,4 @@
-type Props = {
+type LandingCardProps = {
     title?: string;
     subtitle?: string;
     image?: string;
@@ -6,11 +6,13 @@ type Props = {
 }
 
 
-const LandingCard = ({ title, subtitle, background, image } : Props) => {
+const LandingCard = ({ title, subtitle, background, image } : LandingCardProps) => {
 
     return (
         <div className={'bg-white rounded-lg block p-2'}>
-            <div className={`${background} rounded-lg p-3 h-60 flex items-center align-center`}>
+            <div
+                data-testid={'background-image'}
+                className={`${background} rounded-lg p-3 h-60 flex items-center align-center`}>
                 <img src={image}  alt={`quizquest promo image ${title}`} className={"object-contain w-full h-full"} />
             </div>
             <p className={'py-4 px-2 text-center text-lg'}><span>{title} </span>
