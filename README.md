@@ -12,7 +12,7 @@ QuizQuest will help you grow as a developer.
 To use the app, navigate to the homepage, select a deck and start learning. You decide whether you know the anwser or not. You can view the answer by pressing Spacebar or clicking on flashcard.
 When you are done with all the flashcards, a summary will appear where you decide if you want to practice more with a deck limited to previous mistakes, or if you'd like to start over.
 
-![quizquest.gif](public%2Fpresentationc%2Fquizquest.gif)
+![quizquest.gif](public/presentation/quizquest.gif)
 
 ## Technologies Used
 - React
