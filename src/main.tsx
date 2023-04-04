@@ -4,7 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./error-page";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { setupStore } from "./app/store";
 import HomePage from "./components/pages/HomePage";
 import GamePage from "./components/pages/GamePage";
 import LandingPage from "./components/pages/LandingPage";
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={setupStore()}>
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>

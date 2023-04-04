@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter as Router, Route, Routes } from "react-router-dom";
-import { store } from "@/app/store";
+import { setupStore } from "@/app/store";
 import { DeckQuestions } from "@/components/deck/DeckQuestions";
 import React from "react";
 import { vi } from "vitest";
@@ -45,7 +45,7 @@ vi.mock("@/features/deck/deckSlice", () => {
 describe("DeckQuestions component", () => {
   it("should render deck questions", () => {
     render(
-      <Provider store={store}>
+      <Provider store={setupStore()}>
         <Router initialEntries={["/deck/1"]}>
           <Routes>
             <Route path="/deck/:deckId" element={<DeckQuestions />} />

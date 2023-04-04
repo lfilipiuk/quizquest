@@ -7,18 +7,18 @@ import {
     getWrongAnswersCount,
     reviseMistakes
 } from "@/features/game/gameSlice";
-import {useDispatch, useSelector} from "react-redux";
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 import {Link} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "@/app/hooks";
 
 const GameSummary : FC = () => {
-    const dispatch = useDispatch();
-    const deckName = useSelector(getDeckName);
-    const correctAnswers = useSelector(getCorrectAnswersCount);
-    const wrongAnswers = useSelector(getWrongAnswersCount);
-    const flashcardsCount = useSelector(getFlashcardsCount);
-    const gameFlashcards = useSelector(getGameFlashcards);
+    const dispatch = useAppDispatch();
+    const deckName = useAppSelector(getDeckName);
+    const correctAnswers = useAppSelector(getCorrectAnswersCount);
+    const wrongAnswers = useAppSelector(getWrongAnswersCount);
+    const flashcardsCount = useAppSelector(getFlashcardsCount);
+    const gameFlashcards = useAppSelector(getGameFlashcards);
     const { width, height } = useWindowSize()
 
     if(correctAnswers === flashcardsCount) {

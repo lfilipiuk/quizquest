@@ -7,6 +7,7 @@ import {
   nextFlashcard,
   wrongAnswer,
 } from "@/features/game/gameSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 interface GameCardSideProps {
   text: string;
@@ -17,7 +18,7 @@ const GameCardSide: FC<GameCardSideProps> = ({
   text,
   side,
 }: GameCardSideProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const cardVariants = {
     A: {
@@ -34,7 +35,7 @@ const GameCardSide: FC<GameCardSideProps> = ({
     },
   };
 
-  function onDragEnd(event:any,info: any) {
+  function onDragEnd(event: any, info: any) {
     if (info.offset.x > 100) {
       //swiped left
       dispatch(correctAnswer());
@@ -48,34 +49,28 @@ const GameCardSide: FC<GameCardSideProps> = ({
     }
   }
 
-  const x = useMotionValue(0);
-  const xInput = [-100, 0, 100];
-  // const background = useTransform(x, xInput, [
-  //   "linear-gradient(180deg, #e92560 0%, #e92549 100%)",
-  //   "linear-gradient(180deg,#2562E9 0%, #252FE9 100%)",
-  //   "linear-gradient(180deg, #25e928 0%, #25e946 100%)",
-  // ]);
-
   return (
     <motion.div
+      data-testid={side === "A" ? "game-card-side-a" : "game-card-side-b"}
       drag={"x"}
       // style={{ x, background }}
-      initial={ false }
+      initial={false}
       dragConstraints={{ left: 0, right: 0 }}
       whileTap={{ scale: 0.9 }}
       variants={cardVariants}
       animate={side}
       onClick={() => dispatch(flipCurrentFlashcard())}
-      onDragEnd={(event, info) => onDragEnd(event, info )}
+      onDragEnd={(event, info) => onDragEnd(event, info)}
       className={
         "rounded-xl p-1 cursor-pointer w-full h-80 flex flex-col justify-center absolute items-center shadow-2xl backface-hidden bg-white"
       }
     >
-          <motion.h1
-              // initial={{ opacity: 0}}
-              // animate={{ opacity: 1}}
-              transition={{ duration: 1, delay: 0.1 }}
-              className={"text-2xl text-center"}>{text}</motion.h1>
+      <motion.h1
+        transition={{ duration: 1, delay: 0.1 }}
+        className={"text-2xl text-center"}
+      >
+        {text}
+      </motion.h1>
     </motion.div>
   );
 };

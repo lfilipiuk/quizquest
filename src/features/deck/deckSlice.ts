@@ -7,7 +7,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     getDecks: builder.query<any,any>({
       async queryFn() {
         try {
-          console.log("getDecks");
           const docRef = ref(database, "decks");
           const snapshot = await get(docRef);
           return { data: snapshot.val() };

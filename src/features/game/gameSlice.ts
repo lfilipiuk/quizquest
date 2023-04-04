@@ -25,14 +25,15 @@ const gameSlice = createSlice({
       state.deckName = action.payload;
     },
     setGameData(state, action: PayloadAction<any>) {
-      state.initialFlashcards = action.payload.map((flashcard: any) => ({
+      const gameFlashcards = action.payload.map((flashcard: any) => ({
         ...flashcard,
         status: "unanswered",
       }));
-      state.gameFlashcards = [...state.initialFlashcards];
-      if (state.gameFlashcards.length > 0) {
-        state.gameFlashcards[0].status = "current";
+      if (gameFlashcards.length > 0) {
+        gameFlashcards[0].status = "current";
       }
+      state.initialFlashcards = action.payload;
+      state.gameFlashcards = gameFlashcards;
     },
     setCurrentFlashcard(state, action: PayloadAction<number>) {
       state.currentFlashcard = action.payload;
@@ -96,13 +97,13 @@ export const {
 
 export default gameSlice.reducer;
 export const getCurrentFlashcard = (state: any) =>
-  state.game.initialFlashcards[state.game.currentFlashcard];
+  state.game.gameFlashcards[state.game.currentFlashcard];
 
 export const getNextFlashcard = (state: any) => {
-  if (state.game.currentFlashcard + 1 >= state.game.initialFlashcards.length) {
+  if (state.game.currentFlashcard + 1 >= state.game.gameFlashcards.length) {
     return null;
   }
-  return state.game.initialFlashcards[state.game.currentFlashcard + 1];
+  return state.game.gameFlashcards[state.game.currentFlashcard + 1];
 };
 
 export const isCurrentFlashcardFlipped = (state: any) =>

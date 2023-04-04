@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import {
   correctAnswer,
   flipCurrentFlashcard,
@@ -17,18 +16,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import ProgressBar from "../ui/ProgressBar";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import GameSummary from "./GameSummary";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
 const Game: FC = () => {
-  const currentCard = useSelector(getCurrentFlashcard);
-  const progressData: any[] = useSelector(getProgressData);
-  const summary = useSelector(showSummary);
-  const gameFlashcards = useSelector(getGameFlashcards);
-  const questionNumber = useSelector(getQuestionNumber);
-  const followingFlashcard = useSelector(getNextFlashcard);
+  const currentCard = useAppSelector(getCurrentFlashcard);
+  const progressData: any[] = useAppSelector(getProgressData);
+  const summary = useAppSelector(showSummary);
+  const gameFlashcards = useAppSelector(getGameFlashcards);
+  const questionNumber = useAppSelector(getQuestionNumber);
+  const followingFlashcard = useAppSelector(getNextFlashcard);
 
   const [answerState, setAnswerState] = useState("pending");
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [keyPressed, setKeyPressed] = useState(false);
 
@@ -78,9 +78,17 @@ const Game: FC = () => {
   const handleAnswer = (answerState: string) => {
     switch (answerState) {
       case "correct":
-        return { x: "100%", opacity: 0, transition: { duration: 0.5, delay: 0.1 } };
+        return {
+          x: "100%",
+          opacity: 0,
+          transition: { duration: 0.5, delay: 0.1 },
+        };
       case "incorrect":
-        return { x: "-100%", opacity: 0, transition: {duration: 0.5, delay: 0.1 } };
+        return {
+          x: "-100%",
+          opacity: 0,
+          transition: { duration: 0.5, delay: 0.1 },
+        };
       default:
         return {};
     }
@@ -96,7 +104,6 @@ const Game: FC = () => {
   };
 
   if (summary) {
-
     return <GameSummary />;
   }
 
@@ -119,7 +126,6 @@ const Game: FC = () => {
               key={currentCard.id}
               layout
               animate={handleAnswer(answerState)}
-              // transition={{ duration: 0.5, delay: 0.05 }}
               onAnimationComplete={() => {
                 if (answerState !== "pending") {
                   setAnswerState("pending");
@@ -132,7 +138,6 @@ const Game: FC = () => {
                 // key={currentCard.id}
                 question={currentCard.question}
                 answer={currentCard.answer}
-                answerState={answerState}
               />
             </motion.div>
 
@@ -151,13 +156,10 @@ const Game: FC = () => {
                     "rounded-xl p-1 w-full mx-auto h-80 flex flex-col justify-center items-center shadow-lg absolute backface-hidden bg-white text-2xl"
                   }
                 >
-                  <p className={"text-center"}>
-                    {followingFlashcard.question}
-                  </p>
+                  <p className={"text-center"}>{followingFlashcard.question}</p>
                 </motion.div>
               </div>
             )}
-
           </motion.div>
         )}
       </AnimatePresence>
@@ -199,7 +201,7 @@ const Game: FC = () => {
             <p>Flip</p>
             <div
               className={
-                "text-black bg-gray-100 p-0.5 shadow-sm rounded-sm h-4 flex items-center justify-center text-xs border border-gray-300 shadow-sm"
+                "text-black bg-gray-100 p-0.5 rounded-sm h-4 flex items-center justify-center text-xs border border-gray-300 shadow-sm"
               }
             >
               Spc
